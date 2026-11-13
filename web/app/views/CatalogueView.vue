@@ -11,7 +11,7 @@ useHead({ title: catalogue.value.title })
   <template v-if="catalogue">
     <UiPageHeader :title="catalogue.title" />
     <UiPageBody>
-      <UiCardList :cards="catalogue.cards" />
+      <UiCardList :cards="selectCards(catalogue.cards, {})" />
     </UiPageBody>
   </template>
 </template>

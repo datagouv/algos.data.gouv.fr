@@ -22,11 +22,13 @@ const exampleRecord: RegistryRecord = {
 }
 
 describe('toRecordCard', () => {
-  it('shows the French title and description, and links to the record', () => {
+  it('shows the French title and description, the authority and the tags of the record, and links to it', () => {
     expect(toRecordCard(exampleRecord)).toEqual({
       title: 'Calcul de l\'aide à la scolarité',
       description: expect.stringMatching(/^Calcule le montant de l'aide à la scolarité/),
       to: '/regles/prestagri-aide-scolarite',
+      detail: 'Ministère de l\'Agriculture',
+      tags: ['Solidarité', 'Catala', 'Code ouvert'],
     })
   })
 })
@@ -35,10 +37,20 @@ describe('toCataloguePage', () => {
   it('titles the catalogue and shows a card per record', () => {
     expect(toCataloguePage([exampleRecord])).toEqual({
       title: 'Catalogue des règles',
+      filters: [],
       cards: [
-        toRecordCard(exampleRecord),
+        {
+          card: toRecordCard(exampleRecord),
+          values: expect.any(Object),
+        },
       ],
     })
+  })
+
+  it('gives each card the value of its record for each filter', () => {
+    const otherRecord: RegistryRecord = { ...exampleRecord, identifier: 'autre', engine: 'openfisca' }
+    const page = toCataloguePage([exampleRecord, otherRecord])
+    expect(page.cards.map(({ values }) => values.engine)).toEqual(['catala', 'openfisca'])
   })
 })
 

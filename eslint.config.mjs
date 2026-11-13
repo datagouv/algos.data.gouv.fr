@@ -108,6 +108,10 @@ export default antfu(
               regex: '^@datagouv/regles-core',
               message: 'Pages and components read view models from the server routes, prepared by web/catalogue.',
             },
+            {
+              regex: '(^|/)catalogue(/|$)',
+              message: 'Pages and components read the cards and the filters of the catalogue from /api/records, prepared by web/catalogue.',
+            },
             designSystemImports,
           ],
         },
