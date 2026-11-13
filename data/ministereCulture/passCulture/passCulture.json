@@ -26,5 +26,11 @@
   },
   "thematic_area": "culture",
   "engine": "openfisca",
-  "source_openness": "open"
+  "source_openness": "open",
+  "legal_resources": [
+    {
+      "title": "Décret n° 2021-628 du 20 mai 2021 relatif au « pass Culture »",
+      "url": "https://www.legifrance.gouv.fr/eli/decret/2021/5/20/MICB2114325D/jo/texte"
+    }
+  ]
 }

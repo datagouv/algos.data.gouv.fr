@@ -19,6 +19,7 @@ const prestagri: RegistryRecord = {
   thematic_area: 'solidarity',
   engine: 'catala',
   source_openness: 'open',
+  legal_resources: null,
 }
 const passCulture: RegistryRecord = {
   ...prestagri,

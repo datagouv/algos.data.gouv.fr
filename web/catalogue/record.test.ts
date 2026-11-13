@@ -19,6 +19,7 @@ const exampleRecord: RegistryRecord = {
   thematic_area: 'solidarity',
   engine: 'catala',
   source_openness: 'open',
+  legal_resources: null,
 }
 
 describe('toRecordCard', () => {
