@@ -88,6 +88,24 @@ describe('toRecordDetail', () => {
     })
   })
 
+  it('shows the legal resources in the order of the record, without a link for an address outside the web', () => {
+    const detail = toRecordDetail({
+      ...exampleRecord,
+      legal_resources: [
+        { title: 'Code électoral, article L.2', url: 'https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/' },
+        { title: 'Texte sans adresse web', url: 'javascript:alert(1)' },
+      ],
+    })
+    expect(detail.legalResources).toEqual([
+      { label: 'Code électoral, article L.2', href: 'https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/' },
+      { label: 'Texte sans adresse web', href: null },
+    ])
+  })
+
+  it('shows no legal resource for a record that gives none', () => {
+    expect(toRecordDetail(exampleRecord).legalResources).toEqual([])
+  })
+
   it('leaves out the source when the record has none', () => {
     expect(toRecordDetail({ ...exampleRecord, source_repository: null, source_commit: null }).source).toBeNull()
   })
