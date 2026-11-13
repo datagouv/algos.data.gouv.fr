@@ -51,7 +51,7 @@ export function toRecordDetail(record: RegistryRecord): RecordDetail {
     title,
     description: record.description.fr,
     breadcrumb: catalogueBreadcrumb(title),
-    authority: externalLink(record.competent_authority),
+    authority: externalLink(record.competent_authority.id),
     version: record.version,
     validity: describeValidity(record.valid_from, record.valid_to),
     source: record.source_repository === null

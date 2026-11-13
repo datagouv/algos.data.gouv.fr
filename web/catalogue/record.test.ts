@@ -15,7 +15,10 @@ const exampleRecord: RegistryRecord = {
   source_commit: '478b3cc2ab28299c73b94fdd192b0559ae5873b8',
   created_at: null,
   updated_at: null,
-  competent_authority: 'https://github.com/betagouv/prestagri#organisation',
+  competent_authority: { id: 'https://github.com/betagouv/prestagri#organisation', name: 'Ministère de l\'Agriculture' },
+  thematic_area: 'solidarity',
+  engine: 'catala',
+  source_openness: 'open',
 }
 
 describe('toRecordCard', () => {
@@ -81,7 +84,11 @@ describe('toRecordDetail', () => {
     'data:text/html,test',
     'not a url',
   ])('shows %s as text, without a link', (url) => {
-    const detail = toRecordDetail({ ...exampleRecord, competent_authority: url, source_repository: url })
+    const detail = toRecordDetail({
+      ...exampleRecord,
+      competent_authority: { ...exampleRecord.competent_authority, id: url },
+      source_repository: url,
+    })
     expect(detail.authority).toEqual({ label: url, href: null })
     expect(detail.source?.repository).toEqual({ label: url, href: null })
   })
