@@ -8,13 +8,9 @@ PRESTAGRI = "https://github.com/betagouv/prestagri"
 
 def test_records_that_cite_the_same_commit_are_verified_once(tmp_path):
     (tmp_path / "prestagri").mkdir()
-    (tmp_path / "prestagri" / "a.json").write_text(json.dumps([
-        {"source_repository": PRESTAGRI, "source_commit": COMMIT},
-        {"source_repository": None, "source_commit": None},
-    ]))
-    (tmp_path / "prestagri" / "b.json").write_text(json.dumps([
-        {"source_repository": PRESTAGRI, "source_commit": COMMIT},
-    ]))
+    (tmp_path / "prestagri" / "a.json").write_text(json.dumps({"source_repository": PRESTAGRI, "source_commit": COMMIT}))
+    (tmp_path / "prestagri" / "b.json").write_text(json.dumps({"source_repository": PRESTAGRI, "source_commit": COMMIT}))
+    (tmp_path / "prestagri" / "c.json").write_text(json.dumps({"source_repository": None, "source_commit": None}))
 
     assert cited_commits(tmp_path) == [(PRESTAGRI, COMMIT)]
 
