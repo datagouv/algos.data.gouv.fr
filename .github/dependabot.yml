@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    # pr-title.yml requires a conventional commit title
+    commit-message:
+      prefix: build
+      include: scope
+    groups:
+      npm:
+        update-types: [minor, patch]
+    ignore:
+      # The types follow the node version set in mise.toml
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+      # vue-tsc 3.3 does not run on typescript 7
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: ci
+      include: scope

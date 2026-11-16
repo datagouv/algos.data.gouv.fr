@@ -7,19 +7,26 @@ export interface CataloguePage {
   cards: UiCard[]
 }
 
+export interface ExternalLink {
+  label: string
+  href: string | null
+}
+
 export interface RecordDetail {
   title: string
   description: string
   breadcrumb: UiBreadcrumbProps
-  authority: string
+  authority: ExternalLink
   version: string
   validity: string | null
-  source: { repository: string, commit: string | null } | null
+  source: { repository: ExternalLink, commit: string | null } | null
   subjects: string[]
   updatedOn: string | null
 }
 
 const CATALOGUE_TITLE = 'Catalogue des règles'
+
+const WEB_PROTOCOLS = new Set(['http:', 'https:'])
 
 const DATE_FORMAT = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeZone: 'UTC' })
 
@@ -44,19 +51,27 @@ export function toRecordDetail(record: RegistryRecord): RecordDetail {
     title,
     description: frenchText(record.description),
     breadcrumb: catalogueBreadcrumb(title),
-    authority: record.competent_authority,
+    authority: externalLink(record.competent_authority),
     version: record.version,
     validity: describeValidity(record.valid_from, record.valid_to),
     source: record.source_repository === null
       ? null
-      : { repository: record.source_repository, commit: record.source_commit?.slice(0, 7) ?? null },
+      : {
+          repository: externalLink(record.source_repository),
+          commit: record.source_commit?.slice(0, 7) ?? null,
+        },
     subjects: (record.subjects ?? []).filter(subject => typeof subject === 'string'),
     updatedOn: formatDate(record.updated_at ?? record.created_at),
   }
 }
 
 export function catalogueBreadcrumb(current: string): UiBreadcrumbProps {
-  return { links: [{ label: CATALOGUE_TITLE, to: routes.catalogue }], current }
+  return {
+    links: [
+      { label: CATALOGUE_TITLE, to: routes.catalogue },
+    ],
+    current,
+  }
 }
 
 function frenchText(text: { [language: string]: unknown }): string {
@@ -64,6 +79,14 @@ function frenchText(text: { [language: string]: unknown }): string {
   return typeof value === 'string'
     ? value
     : ''
+}
+
+// the schema accepts any URI scheme, javascript: included, so only web addresses become links
+function externalLink(url: string): ExternalLink {
+  const href = WEB_PROTOCOLS.has(URL.parse(url)?.protocol ?? '')
+    ? url
+    : null
+  return { label: url, href }
 }
 
 function describeValidity(from: string | null, to: string | null): string | null {

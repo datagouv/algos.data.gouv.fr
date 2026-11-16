@@ -28,7 +28,10 @@ describe('toRecordCard', () => {
   })
 
   it('falls back on the first language when the French text is missing', () => {
-    const record = { ...exampleRecord, title: { en: 'School allowance calculation' } }
+    const record = {
+      ...exampleRecord,
+      title: { en: 'School allowance calculation' },
+    }
     expect(toRecordCard(record).title).toBe('School allowance calculation')
   })
 })
@@ -37,7 +40,9 @@ describe('toCataloguePage', () => {
   it('titles the catalogue and shows a card per record', () => {
     expect(toCataloguePage([exampleRecord])).toEqual({
       title: 'Catalogue des règles',
-      cards: [toRecordCard(exampleRecord)],
+      cards: [
+        toRecordCard(exampleRecord),
+      ],
     })
   })
 })
@@ -52,7 +57,9 @@ describe('toRecordDetail', () => {
 
   it('leads back to the catalogue in the breadcrumb', () => {
     expect(toRecordDetail(exampleRecord).breadcrumb).toEqual({
-      links: [{ label: 'Catalogue des règles', to: '/' }],
+      links: [
+        { label: 'Catalogue des règles', to: '/' },
+      ],
       current: 'Calcul de l\'aide à la scolarité',
     })
   })
@@ -67,10 +74,23 @@ describe('toRecordDetail', () => {
   })
 
   it('shortens the source commit to seven characters', () => {
-    expect(toRecordDetail(exampleRecord).source).toEqual({ repository: 'https://github.com/betagouv/prestagri', commit: '478b3cc' })
+    expect(toRecordDetail(exampleRecord).source).toEqual({
+      repository: { label: 'https://github.com/betagouv/prestagri', href: 'https://github.com/betagouv/prestagri' },
+      commit: '478b3cc',
+    })
   })
 
   it('leaves out the source when the record has none', () => {
     expect(toRecordDetail({ ...exampleRecord, source_repository: null, source_commit: null }).source).toBeNull()
+  })
+
+  it.each([
+    'javascript:alert(1)',
+    'data:text/html,test',
+    'not a url',
+  ])('shows %s as text, without a link', (url) => {
+    const detail = toRecordDetail({ ...exampleRecord, competent_authority: url, source_repository: url })
+    expect(detail.authority).toEqual({ label: url, href: null })
+    expect(detail.source?.repository).toEqual({ label: url, href: null })
   })
 })
