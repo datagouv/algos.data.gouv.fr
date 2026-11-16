@@ -3,7 +3,7 @@
   "$id": "https://regles.data.gouv.fr/schemas/record.schema.json",
   "title": "Service (Règle)",
   "description": "Schéma d'une fiche de règle (service public) et de ses métadonnées de base. Un fichier de data/ contient exactement un objet décrit par ce schéma.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "x-unique-fields": ["id", "identifier"],
   "type": "object",
   "additionalProperties": false,
@@ -79,6 +79,16 @@
       "type": "string",
       "format": "uri",
       "description": "URI de l'organisation compétente (cv:hasCompetentAuthority)."
+    },
+    "input_schema": {
+      "description": "Schéma JSON (draft 2020-12) décrivant les entrées attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les entrées ne sont pas documentées.",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "$ref": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ]
     }
   },
   "required": [
@@ -94,6 +104,7 @@
     "source_commit",
     "created_at",
     "updated_at",
-    "competent_authority"
+    "competent_authority",
+    "input_schema"
   ]
 }
