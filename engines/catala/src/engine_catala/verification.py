@@ -31,10 +31,10 @@ def cited_commits(data: Path) -> list[tuple[str, str]]:
     """List the distinct repositories and commits that the records of `data` cite."""
     cited = set()
     for path in data.rglob("*.json"):
-        for record in json.loads(path.read_text()):
-            repository, commit = record.get("source_repository"), record.get("source_commit")
-            if repository and commit:
-                cited.add((repository, commit))
+        record = json.loads(path.read_text())
+        repository, commit = record.get("source_repository"), record.get("source_commit")
+        if repository and commit:
+            cited.add((repository, commit))
     return sorted(cited)
 
 
