@@ -29,6 +29,30 @@ done
 exit $status
 '''
 
+[tasks."validate:samples"]
+alias = "contract:validate:samples"
+description = "Validate the sample inputs of every record against its input schema, every record of data/ when no file is given"
+usage = 'arg "[files]" var=#true help="Record files to validate"'
+dir = "{{cwd}}"
+output = "interleave"
+run = '''
+#!/usr/bin/env bash
+files=()
+if [ -n "${usage_files:-}" ]; then
+  eval "files=($usage_files)"
+else
+  while IFS= read -r f; do files+=("$f"); done < <(find "$MISE_MONOREPO_ROOT/data" -name '*.json' | sort)
+fi
+status=0
+for f in "${files[@]}"; do
+  if ! uv run --project "{{config_root}}" contract-samples "$f"; then
+    status=1
+    [ -n "${GITHUB_ACTIONS:-}" ] && echo "::error file=${f#"$MISE_MONOREPO_ROOT/"}::L'exemple d'entrées de la fiche ne respecte pas son schéma d'entrées, voir le rapport de contract-samples dans le journal"
+  fi
+done
+exit $status
+'''
+
 [tasks."validate:schema"]
 alias = "contract:validate:schema"
 description = "Validate the schema against the JSON Schema 2020-12 metaschema"

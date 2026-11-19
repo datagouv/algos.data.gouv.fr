@@ -24,6 +24,7 @@
     "id": "https://github.com/openfisca/openfisca-france#organisation",
     "name": "Ministère de la Culture"
   },
+  "input_schema": null,
   "thematic_area": "culture",
   "engine": "openfisca",
   "source_openness": "open",
