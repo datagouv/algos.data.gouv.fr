@@ -215,6 +215,27 @@
         "closed"
       ],
       "description": "Ouverture du code. open : tout le code de la règle est public dans source_repository. hybrid : une partie du code est publique. closed : aucun code n'est public."
+    },
+    "legal_resources": {
+      "type": ["array", "null"],
+      "minItems": 1,
+      "description": "Textes qui fondent la règle (cv:hasLegalResource).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Désignation du texte, article compris (ex: Code électoral, article L.2)."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Adresse où lire le texte, son ELI quand il en a un."
+          }
+        },
+        "required": ["title", "url"],
+        "additionalProperties": false
+      }
     }
   },
   "required": [
@@ -233,6 +254,7 @@
     "competent_authority",
     "thematic_area",
     "engine",
-    "source_openness"
+    "source_openness",
+    "legal_resources"
   ]
 }

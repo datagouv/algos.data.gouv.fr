@@ -19,6 +19,7 @@ export interface RecordDetail {
   description: string
   breadcrumb: UiBreadcrumbProps
   authority: ExternalLink
+  legalResources: ExternalLink[]
   version: string
   validity: string | null
   source: { repository: ExternalLink, commit: string | null } | null
@@ -64,6 +65,7 @@ export function toRecordDetail(record: RegistryRecord): RecordDetail {
     description: record.description.fr,
     breadcrumb: catalogueBreadcrumb(title),
     authority: externalLink(record.competent_authority.id),
+    legalResources: (record.legal_resources ?? []).map(resource => externalLink(resource.url, resource.title)),
     version: record.version,
     validity: describeValidity(record.valid_from, record.valid_to),
     source: record.source_repository === null
@@ -87,11 +89,11 @@ export function catalogueBreadcrumb(current: string): UiBreadcrumbProps {
 }
 
 // the schema accepts any URI scheme, javascript: included, so only web addresses become links
-function externalLink(url: string): ExternalLink {
+function externalLink(url: string, label = url): ExternalLink {
   const href = WEB_PROTOCOLS.has(URL.parse(url)?.protocol ?? '')
     ? url
     : null
-  return { label: url, href }
+  return { label, href }
 }
 
 function describeValidity(from: string | null, to: string | null): string | null {

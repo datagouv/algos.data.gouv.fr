@@ -249,5 +249,11 @@
   "entrypoint": {
     "type": "catala:scope",
     "target": "examples.prestagri.generated.Aide_scolarite:calcul_aide_scolarite"
-  }
+  },
+  "legal_resources": [
+    {
+      "title": "Note de service SG/SRH/SDDPRS/2025-303 du 14 mai 2025, fiche F16, page 29",
+      "url": "https://info.agriculture.gouv.fr/boagri/instruction-2025-303"
+    }
+  ]
 }

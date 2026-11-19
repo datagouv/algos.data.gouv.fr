@@ -30,6 +30,16 @@ describe('readRecord', () => {
     })).toEqual(gaps('title'))
   })
 
+  it('reports a legal resource that has no address', () => {
+    const incomplete = {
+      ...exampleRecord,
+      legal_resources: [
+        { title: 'Code électoral, article L.2' },
+      ],
+    }
+    expect(readRecord(incomplete)).toEqual(gaps('legal_resources'))
+  })
+
   it('reports a file that contains a list of records', () => {
     expect(readRecord([exampleRecord])).toEqual(gaps(null))
   })

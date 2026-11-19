@@ -22,5 +22,11 @@
   "thematic_area": "solidarity",
   "engine": "catala",
   "source_openness": "open",
-  "input_schema": null
+  "input_schema": null,
+  "legal_resources": [
+    {
+      "title": "Note de service SG/SRH/SDDPRS/2025-303 du 14 mai 2025, page 5",
+      "url": "https://info.agriculture.gouv.fr/boagri/instruction-2025-303"
+    }
+  ]
 }
