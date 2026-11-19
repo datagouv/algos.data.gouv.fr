@@ -4,7 +4,10 @@
   "title": "Service (Règle)",
   "description": "Schéma d'une fiche de règle (service public) et de ses métadonnées de base. Un fichier de data/ contient exactement un objet décrit par ce schéma.",
   "version": "0.3.0",
-  "x-unique-fields": ["id", "identifier"],
+  "x-unique-fields": [
+    "id",
+    "identifier"
+  ],
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -25,75 +28,129 @@
       "type": "object",
       "description": "Titre multilingue. Exemple: {\"fr\": \"Prime d'activité\", \"en\": \"Activity Bonus\"}.",
       "properties": {
-        "fr": { "type": "string" },
-        "en": { "type": "string" }
+        "fr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
       },
-      "required": ["fr"],
+      "required": [
+        "fr"
+      ],
       "additionalProperties": false
     },
     "description": {
       "type": "object",
       "description": "Description multilingue de la règle.",
       "properties": {
-        "fr": { "type": "string" },
-        "en": { "type": "string" }
+        "fr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
       },
-      "required": ["fr"],
+      "required": [
+        "fr"
+      ],
       "additionalProperties": false
     },
     "valid_from": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
       "description": "Date de début de validité (dct:valid)."
     },
     "valid_to": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
       "description": "Date de fin de validité (dct:valid)."
     },
     "subjects": {
-      "type": ["array", "null"],
-      "items": { "type": "string" },
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
       "description": "Tags thématiques (ex: ['prime-activite', 'minima-sociaux'])."
     },
     "source_repository": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uri",
       "description": "URL du dépôt source (dct:source, ex: https://github.com/openfisca/openfisca-france)."
     },
     "source_commit": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "SHA du commit épinglé (schema:SoftwareSourceCode)."
     },
     "created_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
       "description": "Date de création de la fiche."
     },
     "updated_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
       "description": "Date de dernière mise à jour."
     },
     "competent_authority": {
-      "type": "string",
-      "format": "uri",
-      "description": "URI de l'organisation compétente (cv:hasCompetentAuthority)."
+      "type": "object",
+      "description": "Organisation compétente (cv:hasCompetentAuthority).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI de l'organisation."
+        },
+        "name": {
+          "type": "string",
+          "description": "Nom de l'organisation (ex: Ministère de la Culture)."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
     },
     "input_schema": {
       "description": "Schéma JSON (draft 2020-12) décrivant les entrées attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les entrées ne sont pas documentées.",
       "anyOf": [
-        { "type": "null" },
+        {
+          "type": "null"
+        },
         {
           "type": "object",
           "$ref": "https://json-schema.org/draft/2020-12/schema"
         }
       ]
     },
-     "output_schema": {
+    "output_schema": {
       "description": "Schéma JSON (draft 2020-12) décrivant les sorties attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les sorties ne sont pas documentées.",
       "anyOf": [
-        { "type": "null" },
+        {
+          "type": "null"
+        },
         {
           "type": "object",
           "$ref": "https://json-schema.org/draft/2020-12/schema"
@@ -101,17 +158,63 @@
       ]
     },
     "sample_input": {
-      "type": ["object", "array", "null"],
+      "type": [
+        "object",
+        "array",
+        "null"
+      ],
       "description": "Exemple d'entrées acceptées par l'algorithme, pour préremplir une démonstration sans avoir à exécuter les tests du moteur. Une valeur non nulle doit valider contre input_schema, ce que JSON Schema ne peut pas vérifier (c'est une contrainte entre deux valeurs du même document) : la tâche contract:validate:samples s'en charge à l'enregistrement de chaque fiche. null si aucune démonstration n'est fournie."
     },
     "entrypoint": {
       "type": "object",
-      "required": ["type", "target"],
+      "required": [
+        "type",
+        "target"
+      ],
       "properties": {
-        "type": { "type": "string" },
-        "target": { "type": "string" },
-        "build_artifact": { "type": "string" }
+        "type": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "build_artifact": {
+          "type": "string"
+        }
       }
+    },
+    "thematic_area": {
+      "type": "string",
+      "enum": [
+        "solidarity",
+        "taxation",
+        "employment",
+        "retirement",
+        "housing",
+        "culture",
+        "health",
+        "citizenship"
+      ],
+      "description": "Domaine de politique publique (cv:thematicArea)."
+    },
+    "engine": {
+      "type": "string",
+      "enum": [
+        "publicodes",
+        "openfisca",
+        "catala",
+        "other"
+      ],
+      "description": "Moteur de calcul avec lequel la règle est écrite. other : code écrit sans l'un des trois autres moteurs."
+    },
+    "source_openness": {
+      "type": "string",
+      "enum": [
+        "open",
+        "hybrid",
+        "closed"
+      ],
+      "description": "Ouverture du code. open : tout le code de la règle est public dans source_repository. hybrid : une partie du code est publique. closed : aucun code n'est public."
     }
   },
   "required": [
@@ -127,6 +230,9 @@
     "source_commit",
     "created_at",
     "updated_at",
-    "competent_authority"
+    "competent_authority",
+    "thematic_area",
+    "engine",
+    "source_openness"
   ]
 }

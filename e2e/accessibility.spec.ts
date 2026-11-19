@@ -1,18 +1,5 @@
-import type { Page } from '@playwright/test'
-import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-
-const WCAG_21_AA = [
-  'wcag2a',
-  'wcag2aa',
-  'wcag21a',
-  'wcag21aa',
-]
-
-async function findViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG_21_AA).analyze()
-  return results.violations
-}
+import { findViolations } from './axe.ts'
 
 test('the catalogue has no axe violation of WCAG 2.1 AA', async ({ page }) => {
   await page.goto('/')
