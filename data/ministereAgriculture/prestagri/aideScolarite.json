@@ -142,5 +142,9 @@
     "trajet_depuis_domicile_etudiant": null,
     "montant_materiel_specifique": 1000,
     "etudiant_en_filiere_post_bac": false
+  },
+  "entrypoint": {
+    "type": "catala:scope",
+    "target": "examples.prestagri.generated.Aide_scolarite:calcul_aide_scolarite"
   }
 }

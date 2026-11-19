@@ -103,6 +103,15 @@
     "sample_input": {
       "type": ["object", "array", "null"],
       "description": "Exemple d'entrées acceptées par l'algorithme, pour préremplir une démonstration sans avoir à exécuter les tests du moteur. Une valeur non nulle doit valider contre input_schema, ce que JSON Schema ne peut pas vérifier (c'est une contrainte entre deux valeurs du même document) : la tâche contract:validate:samples s'en charge à l'enregistrement de chaque fiche. null si aucune démonstration n'est fournie."
+    },
+    "entrypoint": {
+      "type": "object",
+      "required": ["type", "target"],
+      "properties": {
+        "type": { "type": "string" },
+        "target": { "type": "string" },
+        "build_artifact": { "type": "string" }
+      }
     }
   },
   "required": [
