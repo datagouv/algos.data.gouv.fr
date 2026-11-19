@@ -1,9 +1,4 @@
-"""Validation croisée d'une fiche : l'exemple d'entrées doit valider contre son schéma d'entrées.
-
-JSON Schema ne peut pas exprimer « la valeur de sample_input doit valider contre la valeur de
-input_schema » : c'est une contrainte entre deux valeurs d'un même document. La tâche mise
-contract:validate:samples appelle ce module à l'enregistrement de chaque fiche.
-"""
+# Validation croisée d'une fiche : sample_input doit respecter le schéma decrit dans input_schema.
 
 import json
 import os
@@ -32,6 +27,8 @@ def validate_samples(path: Path) -> list[tuple[Path, str]]:
         record = json.loads(path.read_text(encoding='utf-8'))
     except json.JSONDecodeError as error:
         return [(path, f'n\'est pas un fichier JSON valide : {error}')]
+    if not isinstance(record, dict):
+        return [(path, 'ne contient pas un objet')]
 
     input_schema = record.get('input_schema')
     sample_input = record.get('sample_input')
@@ -50,23 +47,32 @@ def validate_samples(path: Path) -> list[tuple[Path, str]]:
 
 
 def input_schema_errors(path: Path, input_schema: dict) -> list[tuple[Path, str]]:
-    """Vérifie le schéma d'entrées contre le métaschema officiel de son dialecte."""
-    validator_cls = validator_for(input_schema)
-    if validator_cls is None:
+    """Vérifie le schéma d'entrées contre le métaschema officiel de son dialecte.
+
+    Un schéma sans dialecte déclaré suit la convention de la fiche : le dialecte courant du registre.
+    """
+    if declares_an_unknown_dialect(input_schema):
         return [(path, f'déclare un dialecte de schéma inconnu : {input_schema.get("$schema")}')]
     try:
-        validator_cls.check_schema(input_schema)
+        validator_for(input_schema).check_schema(input_schema)
     except SchemaError as error:
         return [(path, f'a un input_schema invalide : {error.message}')]
     return []
+
+
+def declares_an_unknown_dialect(input_schema: dict) -> bool:
+    """Retourne si le schéma déclare un dialecte qu'aucun validateur ne connaît."""
+    return '$schema' in input_schema and validator_for(input_schema, default=None) is None
 
 
 def sample_input_errors(path: Path, input_schema: dict, sample_input: object) -> list[tuple[Path, str]]:
     """Vérifie que l'exemple d'entrées, quand la fiche en donne un, valide contre le schéma d'entrées."""
     if sample_input is None:
         return []
-    validator_cls = validator_for(input_schema)
-    validator = validator_cls(input_schema, format_checker=FormatChecker())
+    if declares_an_unknown_dialect(input_schema):
+        # le dialecte inconnu est déjà relaté par input_schema_errors, l'exemple ne peut qu'être passé
+        return []
+    validator = validator_for(input_schema)(input_schema, format_checker=FormatChecker())
     try:
         return [
             (path, f'a un exemple d\'entrées à {error.json_path} qui ne respecte pas input_schema : {error.message}')
