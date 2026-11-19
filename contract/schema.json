@@ -118,7 +118,6 @@
     "source_commit",
     "created_at",
     "updated_at",
-    "competent_authority",
-    "input_schema"
+    "competent_authority"
   ]
 }
