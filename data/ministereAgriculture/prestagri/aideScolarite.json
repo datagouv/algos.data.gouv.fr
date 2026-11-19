@@ -17,5 +17,11 @@
   "source_commit": "478b3cc2ab28299c73b94fdd192b0559ae5873b8",
   "created_at": null,
   "updated_at": null,
-  "competent_authority": "https://github.com/betagouv/prestagri#organisation"
+  "competent_authority": {
+    "id": "https://github.com/betagouv/prestagri#organisation",
+    "name": "Ministère de l'Agriculture"
+  },
+  "thematic_area": "solidarity",
+  "engine": "catala",
+  "source_openness": "open"
 }

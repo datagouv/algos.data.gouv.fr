@@ -1,10 +1,12 @@
 import type { RegistryRecord } from '@datagouv/regles-core'
-import type { UiBreadcrumbProps, UiCard } from '../shared/types/ui'
+import type { UiBreadcrumbProps, UiCard, UiFilter, UiFilterableCard } from '../shared/types/ui'
 import { recordPath, routes } from '../routes'
+import { facetLabel, toFacetValues, toFilters } from './facets'
 
 export interface CataloguePage {
   title: string
-  cards: UiCard[]
+  filters: UiFilter[]
+  cards: UiFilterableCard[]
 }
 
 export interface ExternalLink {
@@ -35,13 +37,23 @@ export function toRecordCard(record: RegistryRecord): UiCard {
     title: record.title.fr,
     description: record.description.fr,
     to: recordPath(record.identifier),
+    detail: record.competent_authority.name,
+    tags: [
+      facetLabel(record, 'thematic_area'),
+      facetLabel(record, 'engine'),
+      facetLabel(record, 'source_openness'),
+    ],
   }
 }
 
 export function toCataloguePage(records: RegistryRecord[]): CataloguePage {
   return {
     title: CATALOGUE_TITLE,
-    cards: records.map(toRecordCard),
+    filters: toFilters(records),
+    cards: records.map(record => ({
+      card: toRecordCard(record),
+      values: toFacetValues(record),
+    })),
   }
 }
 
@@ -51,7 +63,7 @@ export function toRecordDetail(record: RegistryRecord): RecordDetail {
     title,
     description: record.description.fr,
     breadcrumb: catalogueBreadcrumb(title),
-    authority: externalLink(record.competent_authority),
+    authority: externalLink(record.competent_authority.id),
     version: record.version,
     validity: describeValidity(record.valid_from, record.valid_to),
     source: record.source_repository === null

@@ -76,9 +76,36 @@
       "description": "Date de dernière mise à jour."
     },
     "competent_authority": {
+      "type": "object",
+      "description": "Organisation compétente (cv:hasCompetentAuthority).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI de l'organisation."
+        },
+        "name": {
+          "type": "string",
+          "description": "Nom de l'organisation (ex: Ministère de la Culture)."
+        }
+      },
+      "required": ["id", "name"],
+      "additionalProperties": false
+    },
+    "thematic_area": {
       "type": "string",
-      "format": "uri",
-      "description": "URI de l'organisation compétente (cv:hasCompetentAuthority)."
+      "enum": ["solidarity", "taxation", "employment", "retirement", "housing", "culture", "health", "citizenship"],
+      "description": "Domaine de politique publique (cv:thematicArea)."
+    },
+    "engine": {
+      "type": "string",
+      "enum": ["publicodes", "openfisca", "catala", "other"],
+      "description": "Moteur de calcul avec lequel la règle est écrite. other : code écrit sans l'un des trois autres moteurs."
+    },
+    "source_openness": {
+      "type": "string",
+      "enum": ["open", "hybrid", "closed"],
+      "description": "Ouverture du code. open : tout le code de la règle est public dans source_repository. hybrid : une partie du code est publique. closed : aucun code n'est public."
     }
   },
   "required": [
@@ -94,6 +121,9 @@
     "source_commit",
     "created_at",
     "updated_at",
-    "competent_authority"
+    "competent_authority",
+    "thematic_area",
+    "engine",
+    "source_openness"
   ]
 }

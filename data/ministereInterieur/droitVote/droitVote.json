@@ -20,5 +20,11 @@
   "source_commit": "13d9f80ca21d47f55aef9710e6288e94ea10ccc6",
   "created_at": null,
   "updated_at": null,
-  "competent_authority": "https://github.com/qloridant/regalgo-civique-droit-vote#organisation"
+  "competent_authority": {
+    "id": "https://github.com/qloridant/regalgo-civique-droit-vote#organisation",
+    "name": "Ministère de l'Intérieur"
+  },
+  "thematic_area": "citizenship",
+  "engine": "other",
+  "source_openness": "open"
 }
