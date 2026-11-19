@@ -5,5 +5,5 @@ export const routes = {
 export type RouteName = keyof typeof routes
 
 export const routeTitles: Record<RouteName, string> = {
-  reference: 'Référencer ses règles',
+  reference: 'Référencer un algorithme',
 }

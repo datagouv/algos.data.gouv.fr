@@ -6,14 +6,14 @@ const EXAMPLE_PATH = 'data/example.json'
 
 describe('buildRegistry', () => {
   it('lists the record of every file and finds a record by its identifier', () => {
-    const otherRecord = { ...exampleRecord, id: 'https://regles.data.gouv.fr/regles/autre', identifier: 'autre' }
+    const otherRecord = { ...exampleRecord, id: 'https://algos.data.gouv.fr/regles/autre', identifier: 'autre' }
     const result = buildRegistry([
       { path: EXAMPLE_PATH, content: exampleRecord },
       { path: 'data/autre.json', content: otherRecord },
     ])
     assert(result.valid)
     expect(result.registry.records.map(record => record.identifier)).toEqual(['prestagri-aide-scolarite', 'autre'])
-    expect(result.registry.find('autre')?.id).toBe('https://regles.data.gouv.fr/regles/autre')
+    expect(result.registry.find('autre')?.id).toBe('https://algos.data.gouv.fr/regles/autre')
   })
 
   it('reports the file of an invalid record', () => {

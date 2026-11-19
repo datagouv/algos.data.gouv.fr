@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { toCataloguePage, toRecordCard, toRecordDetail } from './record.ts'
 
 const exampleRecord: RegistryRecord = {
-  id: 'https://regles.data.gouv.fr/regles/ministere-agriculture/prestagri-aide-scolarite',
+  id: 'https://algos.data.gouv.fr/regles/ministere-agriculture/prestagri-aide-scolarite',
   identifier: 'prestagri-aide-scolarite',
   version: '0.1.0',
   title: { fr: 'Calcul de l\'aide à la scolarité', en: 'School allowance calculation' },
@@ -31,7 +31,7 @@ describe('toRecordCard', () => {
 describe('toCataloguePage', () => {
   it('titles the catalogue and shows a card per record', () => {
     expect(toCataloguePage([exampleRecord])).toEqual({
-      title: 'Catalogue des règles',
+      title: 'Catalogue d\'algorithmes publics',
       cards: [
         toRecordCard(exampleRecord),
       ],
@@ -50,7 +50,7 @@ describe('toRecordDetail', () => {
   it('leads back to the catalogue in the breadcrumb', () => {
     expect(toRecordDetail(exampleRecord).breadcrumb).toEqual({
       links: [
-        { label: 'Catalogue des règles', to: '/' },
+        { label: 'Catalogue d\'algorithmes publics', to: '/' },
       ],
       current: 'Calcul de l\'aide à la scolarité',
     })
