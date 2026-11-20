@@ -7,7 +7,7 @@ decision-makers: équipe du registre
 
 ## Contexte et problème
 
-Le site regles.data.gouv.fr utilise le DSFR, obligatoire pour un service de l'État. Les partenariats européens demandent aussi de présenter le catalogue en marque blanche, hors de l'identité de l'État français. Les [modalités d'utilisation du DSFR](https://github.com/GouvernementFR/dsfr/blob/main/doc/legal/cgu.md) réservent son usage aux sites de l'État.
+Le site algos.data.gouv.fr utilise le DSFR, obligatoire pour un service de l'État. Les partenariats européens demandent aussi de présenter le catalogue en marque blanche, hors de l'identité de l'État français. Les [modalités d'utilisation du DSFR](https://github.com/GouvernementFR/dsfr/blob/main/doc/legal/cgu.md) réservent son usage aux sites de l'État.
 
 Avec le routage par fichiers de Nuxt, l'adresse d'une page découle du nom de son fichier, et les presenters qui fabriquent les liens vers cette page doivent la répéter.
 

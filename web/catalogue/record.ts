@@ -27,7 +27,7 @@ export interface RecordDetail {
   updatedOn: string | null
 }
 
-const CATALOGUE_TITLE = 'Catalogue des règles'
+const CATALOGUE_TITLE = 'Catalogue d\'algorithmes publics'
 
 const WEB_PROTOCOLS = new Set(['http:', 'https:'])
 
