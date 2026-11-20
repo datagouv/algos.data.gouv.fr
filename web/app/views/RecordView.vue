@@ -26,6 +26,16 @@ useHead({ title: detail.value.title })
           <a v-if="detail.authority.href" :href="detail.authority.href">{{ detail.authority.label }}</a>
           <span v-else>{{ detail.authority.label }}</span>
         </dd>
+        <template v-if="detail.legalResources.length > 0">
+          <dt>Base légale</dt>
+          <dd
+            v-for="(resource, index) in detail.legalResources"
+            :key="index"
+          >
+            <a v-if="resource.href" :href="resource.href">{{ resource.label }}</a>
+            <span v-else>{{ resource.label }}</span>
+          </dd>
+        </template>
         <template v-if="detail.validity">
           <dt>Validité</dt>
           <dd>{{ detail.validity }}</dd>

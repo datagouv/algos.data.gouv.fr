@@ -1,25 +1,37 @@
 {
-  "id": "https://regles.data.gouv.fr/regles/ministere-culture/openfisca-france-pass-culture",
-  "identifier": "openfisca-france-pass-culture",
-  "version": "175.1.4",
-  "title": {
+  "@id": "https://regles.data.gouv.fr/regles/ministere-culture/openfisca-france-pass-culture",
+  "dct:identifier": "openfisca-france-pass-culture",
+  "schema:version": "175.1.4",
+  "dct:title": {
     "fr": "Calcul du montant du Pass Culture"
   },
-  "description": {
+  "dct:description": {
     "fr": "Calcule le montant mensuel du Pass Culture crédité sur le compte d'un jeune, selon son âge. Variable OpenFisca-France, utilisée en production par des simulateurs officiels comme mesdroitssociaux.gouv.fr."
   },
-  "valid_from": "2019-02-01",
-  "valid_to": null,
-  "subjects": [
+  "cprmv:validFrom": "2019-02-01",
+  "cprmv:validUntil": null,
+  "dct:subject": [
     "pass-culture",
     "jeunesse",
     "education",
     "openfisca"
   ],
-  "source_repository": "https://github.com/openfisca/openfisca-france",
+  "dct:source": "https://github.com/openfisca/openfisca-france",
   "source_commit": "9b822b70c7c4c5197113799b54833b5753d13466",
-  "created_at": null,
-  "updated_at": null,
-  "competent_authority": "https://github.com/openfisca/openfisca-france#organisation",
-  "input_schema": null
+  "dct:created": null,
+  "dct:modified": null,
+  "cv:hasCompetentAuthority": {
+    "@id": "https://github.com/openfisca/openfisca-france#organisation",
+    "skos:prefLabel": "Ministère de la Culture"
+  },
+  "cv:thematicArea": "culture",
+  "cprmv:method": "openfisca",
+  "source_openness": "open",
+  "input_schema": null,
+  "cprmv:isBasedOn": [
+    {
+      "eli:title": "Décret n° 2021-628 du 20 mai 2021 relatif au « pass Culture »",
+      "schema:url": "https://www.legifrance.gouv.fr/eli/decret/2021/5/20/MICB2114325D/jo/texte"
+    }
+  ]
 }

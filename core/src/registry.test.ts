@@ -6,24 +6,24 @@ const EXAMPLE_PATH = 'data/example.json'
 
 describe('buildRegistry', () => {
   it('lists the record of every file and finds a record by its identifier', () => {
-    const otherRecord = { ...exampleRecord, id: 'https://regles.data.gouv.fr/regles/autre', identifier: 'autre' }
+    const otherRecord = { ...exampleRecord, '@id': 'https://regles.data.gouv.fr/regles/autre', 'dct:identifier': 'autre' }
     const result = buildRegistry([
       { path: EXAMPLE_PATH, content: exampleRecord },
       { path: 'data/autre.json', content: otherRecord },
     ])
     assert(result.valid)
-    expect(result.registry.records.map(record => record.identifier)).toEqual(['prestagri-aide-scolarite', 'autre'])
-    expect(result.registry.find('autre')?.id).toBe('https://regles.data.gouv.fr/regles/autre')
+    expect(result.registry.records.map(record => record['dct:identifier'])).toEqual(['prestagri-aide-scolarite', 'autre'])
+    expect(result.registry.find('autre')?.['@id']).toBe('https://regles.data.gouv.fr/regles/autre')
   })
 
   it('reports the file of an invalid record', () => {
-    const { competent_authority, ...incomplete } = exampleRecord
+    const { 'cv:hasCompetentAuthority': hasCompetentAuthority, ...incomplete } = exampleRecord
     expect(buildRegistry([
       { path: 'data/incomplete.json', content: incomplete },
     ])).toEqual({
       valid: false,
       gaps: [
-        expect.objectContaining({ path: 'data/incomplete.json', field: 'competent_authority' }),
+        expect.objectContaining({ path: 'data/incomplete.json', field: 'cv:hasCompetentAuthority' }),
       ],
     })
   })
@@ -35,8 +35,8 @@ describe('buildRegistry', () => {
     ])).toEqual({
       valid: false,
       gaps: [
-        { path: 'data/copie.json', field: 'id', message: `has the same id as ${EXAMPLE_PATH}` },
-        { path: 'data/copie.json', field: 'identifier', message: `has the same identifier as ${EXAMPLE_PATH}` },
+        { path: 'data/copie.json', field: '@id', message: `has the same @id as ${EXAMPLE_PATH}` },
+        { path: 'data/copie.json', field: 'dct:identifier', message: `has the same dct:identifier as ${EXAMPLE_PATH}` },
       ],
     })
   })
