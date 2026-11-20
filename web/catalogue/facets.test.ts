@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { toFilters } from './facets.ts'
 
 const prestagri: RegistryRecord = {
-  id: 'https://regles.data.gouv.fr/regles/ministere-agriculture/prestagri-aide-scolarite',
+  id: 'https://algos.data.gouv.fr/regles/ministere-agriculture/prestagri-aide-scolarite',
   identifier: 'prestagri-aide-scolarite',
   version: '0.1.0',
   title: { fr: 'Calcul de l\'aide à la scolarité' },
