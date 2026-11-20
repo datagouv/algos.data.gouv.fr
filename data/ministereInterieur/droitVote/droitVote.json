@@ -1,49 +1,49 @@
 {
-  "id": "https://regles.data.gouv.fr/regles/ministere-interieur/civique-droit-vote",
-  "identifier": "civique-droit-vote",
-  "version": "1.0.0",
-  "title": {
+  "@id": "https://regles.data.gouv.fr/regles/ministere-interieur/civique-droit-vote",
+  "dct:identifier": "civique-droit-vote",
+  "schema:version": "1.0.0",
+  "dct:title": {
     "fr": "Droit de vote en France"
   },
-  "description": {
+  "dct:description": {
     "fr": "Vérification algorithmique de l'éligibilité au droit de vote en France (élections nationales et municipales), codifiée en Python à partir du Code électoral et de la Constitution."
   },
-  "valid_from": "2024-01-01",
-  "valid_to": null,
-  "subjects": [
+  "cprmv:validFrom": "2024-01-01",
+  "cprmv:validUntil": null,
+  "dct:subject": [
     "election",
     "civique",
     "droit-vote",
     "code-electoral"
   ],
-  "source_repository": "https://github.com/qloridant/regalgo-civique-droit-vote",
+  "dct:source": "https://github.com/qloridant/regalgo-civique-droit-vote",
   "source_commit": "13d9f80ca21d47f55aef9710e6288e94ea10ccc6",
-  "created_at": null,
-  "updated_at": null,
-  "competent_authority": {
-    "id": "https://github.com/qloridant/regalgo-civique-droit-vote#organisation",
-    "name": "Ministère de l'Intérieur"
+  "dct:created": null,
+  "dct:modified": null,
+  "cv:hasCompetentAuthority": {
+    "@id": "https://github.com/qloridant/regalgo-civique-droit-vote#organisation",
+    "skos:prefLabel": "Ministère de l'Intérieur"
   },
-  "thematic_area": "citizenship",
-  "engine": "other",
+  "cv:thematicArea": "citizenship",
+  "cprmv:method": "other",
   "source_openness": "open",
   "input_schema": null,
-  "legal_resources": [
+  "cprmv:isBasedOn": [
     {
-      "title": "Code électoral, article L.2",
-      "url": "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/"
+      "eli:title": "Code électoral, article L.2",
+      "schema:url": "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/"
     },
     {
-      "title": "Code électoral, article L.6",
-      "url": "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/"
+      "eli:title": "Code électoral, article L.6",
+      "schema:url": "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/"
     },
     {
-      "title": "Code électoral, article L.O. 227-1",
-      "url": "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/"
+      "eli:title": "Code électoral, article L.O. 227-1",
+      "schema:url": "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070239/"
     },
     {
-      "title": "Constitution, article 88-3",
-      "url": "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006527438/"
+      "eli:title": "Constitution, article 88-3",
+      "schema:url": "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006527438/"
     }
   ]
 }
