@@ -20,5 +20,17 @@
   "source_commit": "9b822b70c7c4c5197113799b54833b5753d13466",
   "created_at": null,
   "updated_at": null,
-  "competent_authority": "https://github.com/openfisca/openfisca-france#organisation"
+  "competent_authority": {
+    "id": "https://github.com/openfisca/openfisca-france#organisation",
+    "name": "Ministère de la Culture"
+  },
+  "thematic_area": "culture",
+  "engine": "openfisca",
+  "source_openness": "open",
+  "legal_resources": [
+    {
+      "title": "Décret n° 2021-628 du 20 mai 2021 relatif au « pass Culture »",
+      "url": "https://www.legifrance.gouv.fr/eli/decret/2021/5/20/MICB2114325D/jo/texte"
+    }
+  ]
 }

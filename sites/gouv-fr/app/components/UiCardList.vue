@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { UiCardListProps } from '#layers/web/shared/types/ui'
-import { DsfrCard } from '@gouvminint/vue-dsfr'
+import { DsfrCard, DsfrTags } from '@gouvminint/vue-dsfr'
 
 defineProps<UiCardListProps>()
 </script>
@@ -16,8 +16,16 @@ defineProps<UiCardListProps>()
         :title="card.title"
         :description="card.description"
         :link="card.to"
+        :detail="card.detail"
         title-tag="h2"
-      />
+      >
+        <template
+          v-if="card.tags?.length"
+          #start-details
+        >
+          <DsfrTags :tags="card.tags.map(label => ({ label, small: true }))" />
+        </template>
+      </DsfrCard>
     </li>
   </ul>
 </template>

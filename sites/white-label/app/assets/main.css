@@ -42,6 +42,10 @@ dd {
   margin: 0 0 var(--space-2);
 }
 
+dd:has(+ dd) {
+  margin-bottom: 0;
+}
+
 .container {
   max-width: var(--width-page);
   margin: 0 auto;

@@ -1,10 +1,12 @@
 import type { RegistryRecord } from '@datagouv/regles-core'
-import type { UiBreadcrumbProps, UiCard } from '../shared/types/ui'
+import type { UiBreadcrumbProps, UiCard, UiFilter, UiFilterableCard } from '../shared/types/ui'
 import { recordPath, routes } from '../routes'
+import { facetLabel, toFacetValues, toFilters } from './facets'
 
 export interface CataloguePage {
   title: string
-  cards: UiCard[]
+  filters: UiFilter[]
+  cards: UiFilterableCard[]
 }
 
 export interface ExternalLink {
@@ -17,6 +19,7 @@ export interface RecordDetail {
   description: string
   breadcrumb: UiBreadcrumbProps
   authority: ExternalLink
+  legalResources: ExternalLink[]
   version: string
   validity: string | null
   source: { repository: ExternalLink, commit: string | null } | null
@@ -35,13 +38,23 @@ export function toRecordCard(record: RegistryRecord): UiCard {
     title: record.title.fr,
     description: record.description.fr,
     to: recordPath(record.identifier),
+    detail: record.competent_authority.name,
+    tags: [
+      facetLabel(record, 'thematic_area'),
+      facetLabel(record, 'engine'),
+      facetLabel(record, 'source_openness'),
+    ],
   }
 }
 
 export function toCataloguePage(records: RegistryRecord[]): CataloguePage {
   return {
     title: CATALOGUE_TITLE,
-    cards: records.map(toRecordCard),
+    filters: toFilters(records),
+    cards: records.map(record => ({
+      card: toRecordCard(record),
+      values: toFacetValues(record),
+    })),
   }
 }
 
@@ -51,7 +64,8 @@ export function toRecordDetail(record: RegistryRecord): RecordDetail {
     title,
     description: record.description.fr,
     breadcrumb: catalogueBreadcrumb(title),
-    authority: externalLink(record.competent_authority),
+    authority: externalLink(record.competent_authority.id),
+    legalResources: (record.legal_resources ?? []).map(resource => externalLink(resource.url, resource.title)),
     version: record.version,
     validity: describeValidity(record.valid_from, record.valid_to),
     source: record.source_repository === null
@@ -75,11 +89,11 @@ export function catalogueBreadcrumb(current: string): UiBreadcrumbProps {
 }
 
 // the schema accepts any URI scheme, javascript: included, so only web addresses become links
-function externalLink(url: string): ExternalLink {
+function externalLink(url: string, label = url): ExternalLink {
   const href = WEB_PROTOCOLS.has(URL.parse(url)?.protocol ?? '')
     ? url
     : null
-  return { label: url, href }
+  return { label, href }
 }
 
 function describeValidity(from: string | null, to: string | null): string | null {
