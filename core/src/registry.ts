@@ -43,7 +43,7 @@ export function buildRegistry(files: RecordFile[]): BuildRegistryResult {
   if (gaps.length > 0) {
     return { valid: false, gaps }
   }
-  const byIdentifier = new Map(entries.map(entry => [entry.record.identifier, entry.record]))
+  const byIdentifier = new Map(entries.map(entry => [entry.record['dct:identifier'], entry.record]))
   return {
     valid: true,
     registry: {

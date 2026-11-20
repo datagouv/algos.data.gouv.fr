@@ -1,6 +1,6 @@
 import type { RegistryRecord } from '@datagouv/regles-core'
 
-export const THEMATIC_AREA_LABELS: Record<RegistryRecord['thematic_area'], string> = {
+export const THEMATIC_AREA_LABELS: Record<RegistryRecord['cv:thematicArea'], string> = {
   solidarity: 'Solidarité',
   taxation: 'Fiscalité',
   employment: 'Emploi',
@@ -11,7 +11,7 @@ export const THEMATIC_AREA_LABELS: Record<RegistryRecord['thematic_area'], strin
   citizenship: 'Citoyenneté',
 }
 
-export const ENGINE_LABELS: Record<RegistryRecord['engine'], string> = {
+export const METHOD_LABELS: Record<RegistryRecord['cprmv:method'], string> = {
   publicodes: 'Publicodes',
   openfisca: 'OpenFisca',
   catala: 'Catala',
@@ -25,10 +25,10 @@ export const SOURCE_OPENNESS_LABELS: Record<RegistryRecord['source_openness'], s
 }
 
 export const FACET_LABELS = {
-  thematic_area: { label: 'Domaine', allLabel: 'Tous les domaines' },
-  competent_authority: { label: 'Organisme', allLabel: 'Tous les organismes' },
-  engine: { label: 'Moteur de calcul', allLabel: 'Tous les moteurs' },
-  source_openness: { label: 'Ouverture du code', allLabel: 'Tous les niveaux d\'ouverture' },
+  'cv:thematicArea': { label: 'Domaine', allLabel: 'Tous les domaines' },
+  'cv:hasCompetentAuthority': { label: 'Organisme', allLabel: 'Tous les organismes' },
+  'cprmv:method': { label: 'Moteur de calcul', allLabel: 'Tous les moteurs' },
+  'source_openness': { label: 'Ouverture du code', allLabel: 'Tous les niveaux d\'ouverture' },
 }
 
 export type Facet = keyof typeof FACET_LABELS

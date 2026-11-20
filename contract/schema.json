@@ -2,146 +2,155 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://algos.data.gouv.fr/schemas/record.schema.json",
   "title": "Service (Règle)",
-  "description": "Schéma d'une fiche de règle (service public) et de ses métadonnées de base. Un fichier de data/ contient exactement un objet décrit par ce schéma.",
-  "version": "0.3.0",
-  "x-unique-fields": ["id", "identifier"],
+  "description": "Schéma d'une fiche de règle (service public) et de ses métadonnées de base.",
+  "version": "0.5.0",
+  "x-unique-fields": [
+    "@id",
+    "dct:identifier"
+  ],
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "id": {
+    "@id": {
       "type": "string",
       "format": "uri",
-      "description": "URI canonique de la règle (ex: https://algos.data.gouv.fr/regles/cnaf/prime-activite)."
+      "description": "URI canonique de la règle (ex: https://algos.data.gouv.fr/regles/cnaf/prime-activite). Identifie la version de la règle décrite par la fiche."
     },
-    "identifier": {
+    "dct:identifier": {
       "type": "string",
-      "description": "Identifiant unique de la règle (ex: solidarite.prime-activite.openfisca-france)."
+      "description": "Identifiant unique de la règle (ex: solidarite.prime-activite.openfisca-france). Invariant d'une version à l'autre, contrairement à l'URI canonique."
     },
-    "version": {
+    "schema:version": {
       "type": "string",
       "description": "Version semver de la règle (ex: 169.15.0)."
     },
-    "title": {
+    "dct:title": {
       "type": "object",
       "description": "Titre multilingue. Exemple: {\"fr\": \"Prime d'activité\", \"en\": \"Activity Bonus\"}.",
       "properties": {
-        "fr": { "type": "string" },
-        "en": { "type": "string" }
+        "fr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
       },
-      "required": ["fr"],
+      "required": [
+        "fr"
+      ],
       "additionalProperties": false
     },
-    "description": {
+    "dct:description": {
       "type": "object",
       "description": "Description multilingue de la règle.",
       "properties": {
-        "fr": { "type": "string" },
-        "en": { "type": "string" }
+        "fr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
       },
-      "required": ["fr"],
+      "required": [
+        "fr"
+      ],
       "additionalProperties": false
     },
-    "valid_from": {
-      "type": ["string", "null"],
+    "cprmv:validFrom": {
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
-      "description": "Date de début de validité (dct:valid)."
+      "description": "Date de début de validité du jeu de règles (validFrom d'un RuleSet de CPRMV). null quand elle est inconnue, alors que CPRMV l'exige (1..1)."
     },
-    "valid_to": {
-      "type": ["string", "null"],
+    "cprmv:validUntil": {
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
-      "description": "Date de fin de validité (dct:valid)."
+      "description": "Date de fin de validité du jeu de règles, comprise (validUntil d'un RuleSet de CPRMV, 0..1 : null la laisse ouverte)."
     },
-    "subjects": {
-      "type": ["array", "null"],
-      "items": { "type": "string" },
+    "dct:subject": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
       "description": "Tags thématiques (ex: ['prime-activite', 'minima-sociaux'])."
     },
-    "source_repository": {
-      "type": ["string", "null"],
+    "dct:source": {
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uri",
-      "description": "URL du dépôt source (dct:source, ex: https://github.com/openfisca/openfisca-france)."
+      "description": "URL du dépôt source (ex: https://github.com/openfisca/openfisca-france)."
     },
     "source_commit": {
-      "type": ["string", "null"],
-      "description": "SHA du commit épinglé (schema:SoftwareSourceCode)."
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "SHA du commit de dct:source épinglé par la fiche. Aucun prédicat des vocabulaires ne décrit un commit : le nom reste propre au catalogue."
     },
-    "created_at": {
-      "type": ["string", "null"],
+    "dct:created": {
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
       "description": "Date de création de la fiche."
     },
-    "updated_at": {
-      "type": ["string", "null"],
+    "dct:modified": {
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
-      "description": "Date de dernière mise à jour."
+      "description": "Date de dernière mise à jour de la fiche."
     },
-    "competent_authority": {
+    "cv:hasCompetentAuthority": {
       "type": "object",
-      "description": "Organisation compétente (cv:hasCompetentAuthority).",
+      "description": "Organisation compétente (prédicat de CPSV-AP ; les clés suivent CPOV).",
       "properties": {
-        "id": {
+        "@id": {
           "type": "string",
           "format": "uri",
           "description": "URI de l'organisation."
         },
-        "name": {
+        "skos:prefLabel": {
           "type": "string",
           "description": "Nom de l'organisation (ex: Ministère de la Culture)."
         }
       },
-      "required": ["id", "name"],
+      "required": [
+        "@id",
+        "skos:prefLabel"
+      ],
       "additionalProperties": false
     },
-    "thematic_area": {
-      "type": "string",
-      "enum": ["solidarity", "taxation", "employment", "retirement", "housing", "culture", "health", "citizenship"],
-      "description": "Domaine de politique publique (cv:thematicArea)."
-    },
-    "engine": {
-      "type": "string",
-      "enum": ["publicodes", "openfisca", "catala", "other"],
-      "description": "Moteur de calcul avec lequel la règle est écrite. other : code écrit sans l'un des trois autres moteurs."
-    },
-    "source_openness": {
-      "type": "string",
-      "enum": ["open", "hybrid", "closed"],
-      "description": "Ouverture du code. open : tout le code de la règle est public dans source_repository. hybrid : une partie du code est publique. closed : aucun code n'est public."
-    },
-    "legal_resources": {
-      "type": ["array", "null"],
-      "minItems": 1,
-      "description": "Textes qui fondent la règle (cv:hasLegalResource).",
-      "items": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Désignation du texte, article compris (ex: Code électoral, article L.2)."
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "description": "Adresse où lire le texte, son ELI quand il en a un."
-          }
-        },
-        "required": ["title", "url"],
-        "additionalProperties": false
-      }
-    },
     "input_schema": {
-      "description": "Schéma JSON (draft 2020-12) décrivant les entrées attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les entrées ne sont pas documentées.",
+      "description": "Schéma JSON (draft 2020-12) décrivant les entrées attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les entrées ne sont pas documentées. Aucun prédicat des vocabulaires ne décrit le schéma d'entrées d'un algorithme : le nom reste propre au catalogue.",
       "anyOf": [
-        { "type": "null" },
+        {
+          "type": "null"
+        },
         {
           "type": "object",
           "$ref": "https://json-schema.org/draft/2020-12/schema"
         }
       ]
     },
-     "output_schema": {
-      "description": "Schéma JSON (draft 2020-12) décrivant les sorties attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les sorties ne sont pas documentées.",
+    "output_schema": {
+      "description": "Schéma JSON (draft 2020-12) décrivant les sorties attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les sorties ne sont pas documentées. Aucun prédicat des vocabulaires ne décrit le schéma de sorties d'un algorithme : le nom reste propre au catalogue.",
       "anyOf": [
-        { "type": "null" },
+        {
+          "type": "null"
+        },
         {
           "type": "object",
           "$ref": "https://json-schema.org/draft/2020-12/schema"
@@ -149,36 +158,104 @@
       ]
     },
     "sample_input": {
-      "type": ["object", "array", "null"],
+      "type": [
+        "object",
+        "array",
+        "null"
+      ],
       "description": "Exemple d'entrées acceptées par l'algorithme, pour préremplir une démonstration sans avoir à exécuter les tests du moteur. Une valeur non nulle doit valider contre input_schema, ce que JSON Schema ne peut pas vérifier (c'est une contrainte entre deux valeurs du même document) : la tâche contract:validate:samples s'en charge à l'enregistrement de chaque fiche. null si aucune démonstration n'est fournie."
     },
     "entrypoint": {
       "type": "object",
-      "required": ["type", "target"],
+      "required": [
+        "type",
+        "target"
+      ],
       "properties": {
-        "type": { "type": "string" },
-        "target": { "type": "string" },
-        "build_artifact": { "type": "string" }
+        "type": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "build_artifact": {
+          "type": "string"
+        }
+      },
+      "description": "Point d'entrée de la règle chez son moteur. Aucun prédicat des vocabulaires ne le décrit : le nom reste propre au catalogue."
+    },
+    "cv:thematicArea": {
+      "type": "string",
+      "enum": [
+        "solidarity",
+        "taxation",
+        "employment",
+        "retirement",
+        "housing",
+        "culture",
+        "health",
+        "citizenship"
+      ],
+      "description": "Domaine de politique publique (prédicat de CPSV-AP)."
+    },
+    "cprmv:method": {
+      "type": "string",
+      "enum": [
+        "publicodes",
+        "openfisca",
+        "catala",
+        "other"
+      ],
+      "description": "Méthode avec laquelle les règles sont codées en forme exécutable."
+    },
+    "source_openness": {
+      "type": "string",
+      "enum": [
+        "open",
+        "hybrid",
+        "closed"
+      ],
+      "description": "Ouverture du code. Aucun prédicat des vocabulaires ne décrit l'ouverture du code : le nom reste propre au catalogue. open : tout le code de la règle est public dans dct:source. hybrid : une partie du code est publique. closed : aucun code n'est public."
+    },
+    "cprmv:isBasedOn": {
+      "type": ["array", "null"],
+      "minItems": 1,
+      "description": "Textes dont le jeu de règles est la formalisation (isBasedOn d'un RuleSet de CPRMV, que CPRMV préfère à l'implements de CPSV-AP ; équivalent à eli:based_on). Chaque texte est décrit avec les prédicats de l'ontologie ELI quand une propriété a un équivalent, au plus près de ce qui est utile au catalogue : le désigner et dire où le lire.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eli:title": {
+            "type": "string",
+            "description": "Désignation du texte, article compris (ex: Code électoral, article L.2)."
+          },
+          "schema:url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Adresse où lire le texte : son ELI quand il en a un (ex: https://www.legifrance.gouv.fr/eli/loi/2023/12/11/...), sinon l'adresse du texte chez son éditeur."
+          }
+        },
+        "required": ["eli:title", "schema:url"],
+        "additionalProperties": false
       }
     }
   },
   "required": [
-    "id",
-    "identifier",
-    "version",
-    "title",
-    "description",
-    "valid_from",
-    "valid_to",
-    "subjects",
-    "source_repository",
+    "@id",
+    "dct:identifier",
+    "schema:version",
+    "dct:title",
+    "dct:description",
+    "cprmv:validFrom",
+    "cprmv:validUntil",
+    "dct:subject",
+    "dct:source",
     "source_commit",
-    "created_at",
-    "updated_at",
-    "competent_authority",
-    "thematic_area",
-    "engine",
+    "dct:created",
+    "dct:modified",
+    "cv:hasCompetentAuthority",
+    "cv:thematicArea",
+    "cprmv:method",
     "source_openness",
-    "legal_resources"
+    "cprmv:isBasedOn"
   ]
 }
