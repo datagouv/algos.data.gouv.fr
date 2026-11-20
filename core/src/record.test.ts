@@ -6,13 +6,13 @@ describe('readRecord', () => {
   it('reads the record of a valid file', () => {
     const result = readRecord(exampleRecord)
     assert(result.valid)
-    expect(result.record.identifier).toBe('prestagri-aide-scolarite')
-    expect(result.record.valid_from).toBeNull()
+    expect(result.record['dct:identifier']).toBe('prestagri-aide-scolarite')
+    expect(result.record['cprmv:validFrom']).toBeNull()
   })
 
   it('reports an optional field missing from a record', () => {
-    const { valid_from, ...incomplete } = exampleRecord
-    expect(readRecord(incomplete)).toEqual(gaps('valid_from'))
+    const { 'cprmv:validFrom': validFrom, ...incomplete } = exampleRecord
+    expect(readRecord(incomplete)).toEqual(gaps('cprmv:validFrom'))
   })
 
   it('reports a field outside the schema', () => {
@@ -20,24 +20,24 @@ describe('readRecord', () => {
   })
 
   it('reports a value outside the format of its field', () => {
-    expect(readRecord({ ...exampleRecord, id: 'not a uri' })).toEqual(gaps('id'))
+    expect(readRecord({ ...exampleRecord, '@id': 'not a uri' })).toEqual(gaps('@id'))
   })
 
   it('reports the top-level field of a gap inside a nested object', () => {
     expect(readRecord({
       ...exampleRecord,
-      title: { en: 'School allowance calculation' },
-    })).toEqual(gaps('title'))
+      'dct:title': { en: 'School allowance calculation' },
+    })).toEqual(gaps('dct:title'))
   })
 
   it('reports a legal resource that has no address', () => {
     const incomplete = {
       ...exampleRecord,
-      legal_resources: [
-        { title: 'Code électoral, article L.2' },
+      'cprmv:isBasedOn': [
+        { 'eli:title': 'Code électoral, article L.2' },
       ],
     }
-    expect(readRecord(incomplete)).toEqual(gaps('legal_resources'))
+    expect(readRecord(incomplete)).toEqual(gaps('cprmv:isBasedOn'))
   })
 
   it('reports a file that contains a list of records', () => {
