@@ -33,6 +33,7 @@ export default antfu(
       'data/',
       'docs/',
       '.github/',
+      '.mypy_cache/',
     ],
   },
   {
