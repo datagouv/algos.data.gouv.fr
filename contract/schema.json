@@ -3,7 +3,7 @@
   "$id": "https://algos.data.gouv.fr/schemas/record.schema.json",
   "title": "Service (Règle)",
   "description": "Schéma d'une fiche de règle (service public) et de ses métadonnées de base. Un fichier de data/ contient exactement un objet décrit par ce schéma.",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "x-unique-fields": ["id", "identifier"],
   "type": "object",
   "additionalProperties": false,
@@ -126,6 +126,39 @@
         },
         "required": ["title", "url"],
         "additionalProperties": false
+      }
+    },
+    "input_schema": {
+      "description": "Schéma JSON (draft 2020-12) décrivant les entrées attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les entrées ne sont pas documentées.",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "$ref": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ]
+    },
+     "output_schema": {
+      "description": "Schéma JSON (draft 2020-12) décrivant les sorties attendues par l'algorithme, validé contre le métaschema officiel. Exemple: {\"type\": \"object\", \"properties\": {\"age\": {\"type\": \"integer\"}}, \"required\": [\"age\"]}. null si les sorties ne sont pas documentées.",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "$ref": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ]
+    },
+    "sample_input": {
+      "type": ["object", "array", "null"],
+      "description": "Exemple d'entrées acceptées par l'algorithme, pour préremplir une démonstration sans avoir à exécuter les tests du moteur. Une valeur non nulle doit valider contre input_schema, ce que JSON Schema ne peut pas vérifier (c'est une contrainte entre deux valeurs du même document) : la tâche contract:validate:samples s'en charge à l'enregistrement de chaque fiche. null si aucune démonstration n'est fournie."
+    },
+    "entrypoint": {
+      "type": "object",
+      "required": ["type", "target"],
+      "properties": {
+        "type": { "type": "string" },
+        "target": { "type": "string" },
+        "build_artifact": { "type": "string" }
       }
     }
   },

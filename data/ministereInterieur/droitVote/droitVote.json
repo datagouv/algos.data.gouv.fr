@@ -24,6 +24,7 @@
     "id": "https://github.com/qloridant/regalgo-civique-droit-vote#organisation",
     "name": "Ministère de l'Intérieur"
   },
+  "input_schema": null,
   "thematic_area": "citizenship",
   "engine": "other",
   "source_openness": "open",
