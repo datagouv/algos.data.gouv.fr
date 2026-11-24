@@ -1,13 +1,13 @@
 import type { RegistryRecord } from '@datagouv/regles-core'
 import type { UiFilter, UiFilterOption } from '../shared/types/ui'
 import type { Facet } from './labels'
-import { ENGINE_LABELS, FACET_LABELS, SOURCE_OPENNESS_LABELS, THEMATIC_AREA_LABELS } from './labels'
+import { FACET_LABELS, METHOD_LABELS, SOURCE_OPENNESS_LABELS, THEMATIC_AREA_LABELS } from './labels'
 
 const FACET_READERS: Record<Facet, (record: RegistryRecord) => UiFilterOption> = {
-  thematic_area: record => ({ value: record.thematic_area, label: THEMATIC_AREA_LABELS[record.thematic_area] }),
-  competent_authority: record => ({ value: record.competent_authority.name, label: record.competent_authority.name }),
-  engine: record => ({ value: record.engine, label: ENGINE_LABELS[record.engine] }),
-  source_openness: record => ({ value: record.source_openness, label: SOURCE_OPENNESS_LABELS[record.source_openness] }),
+  'cv:thematicArea': record => ({ value: record['cv:thematicArea'], label: THEMATIC_AREA_LABELS[record['cv:thematicArea']] }),
+  'cv:hasCompetentAuthority': record => ({ value: record['cv:hasCompetentAuthority']['skos:prefLabel'], label: record['cv:hasCompetentAuthority']['skos:prefLabel'] }),
+  'cprmv:method': record => ({ value: record['cprmv:method'], label: METHOD_LABELS[record['cprmv:method']] }),
+  'source_openness': record => ({ value: record.source_openness, label: SOURCE_OPENNESS_LABELS[record.source_openness] }),
 }
 
 const FACETS = Object.keys(FACET_READERS) as Facet[]
