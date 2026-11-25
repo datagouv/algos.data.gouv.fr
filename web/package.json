@@ -23,10 +23,10 @@
     "@datagouv/algos-core": "workspace:*",
     "nuxt": "^4.6.3",
     "vue": "^3.5.45",
-    "vue-router": "^5.4.0"
+    "vue-router": "^5.5.1"
   },
   "devDependencies": {
     "typescript": "~6.0.3",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   }
 }
