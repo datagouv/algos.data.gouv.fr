@@ -1,7 +1,7 @@
 {
   "name": "@datagouv/regles-rule-form",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "exports": {
     ".": "./dist/rule-form.js",
