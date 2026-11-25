@@ -48,10 +48,10 @@ importers:
 
   elements/rule-form:
     devDependencies:
-      '@datagouv/regles-site-gouv-fr':
+      '@datagouv/algos-site-gouv-fr':
         specifier: workspace:*
         version: link:../../sites/gouv-fr
-      '@datagouv/regles-web':
+      '@datagouv/algos-web':
         specifier: workspace:*
         version: link:../../web
       '@gouvminint/vue-dsfr':
@@ -75,7 +75,7 @@ importers:
 
   sites/gouv-fr:
     dependencies:
-      '@datagouv/regles-web':
+      '@datagouv/algos-web':
         specifier: workspace:*
         version: link:../../web
       '@gouvfr/dsfr':
@@ -115,7 +115,7 @@ importers:
 
   sites/white-label:
     dependencies:
-      '@datagouv/regles-web':
+      '@datagouv/algos-web':
         specifier: workspace:*
         version: link:../../web
       nuxt:
@@ -137,7 +137,7 @@ importers:
 
   web:
     dependencies:
-      '@datagouv/regles-core':
+      '@datagouv/algos-core':
         specifier: workspace:*
         version: link:../core
       nuxt:

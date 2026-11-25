@@ -1,4 +1,4 @@
-import type { RegistryRecord } from '@datagouv/regles-core'
+import type { RegistryRecord } from '@datagouv/algos-core'
 
 export const THEMATIC_AREA_LABELS: Record<RegistryRecord['cv:thematicArea'], string> = {
   solidarity: 'Solidarité',
