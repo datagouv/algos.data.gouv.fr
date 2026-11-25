@@ -1,4 +1,4 @@
-import type { RegistryRecord } from '@datagouv/regles-core'
+import type { RegistryRecord } from '@datagouv/algos-core'
 import { describe, expect, it } from 'vitest'
 import { toCataloguePage, toRecordCard, toRecordDetail } from './record.ts'
 

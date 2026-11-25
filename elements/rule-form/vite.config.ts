@@ -12,7 +12,7 @@ export default defineConfig({
     dedupe: ['vue'],
     // the component imports the web layer by the alias that Nuxt generates for its sites
     alias: {
-      '#layers/web': fileURLToPath(new URL('node_modules/@datagouv/regles-web', import.meta.url)),
+      '#layers/web': fileURLToPath(new URL('node_modules/@datagouv/algos-web', import.meta.url)),
     },
   },
   build: {

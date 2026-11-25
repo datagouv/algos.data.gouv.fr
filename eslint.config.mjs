@@ -55,7 +55,7 @@ export default antfu(
           patterns: [
             {
               regex: frameworkImports,
-              message: 'The catalogue holds pure presenters from a record to a view model, kept out of the framework: it imports @datagouv/regles-core and its own files.',
+              message: 'The catalogue holds pure presenters from a record to a view model, kept out of the framework: it imports @datagouv/algos-core and its own files.',
             },
             designSystemImports,
           ],
@@ -105,7 +105,7 @@ export default antfu(
         {
           patterns: [
             {
-              regex: '^@datagouv/regles-core',
+              regex: '^@datagouv/algos-core',
               message: 'Pages and components read view models from the server routes, prepared by web/catalogue.',
             },
             {

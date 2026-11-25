@@ -1,4 +1,4 @@
-import type { RegistryRecord } from '@datagouv/regles-core'
+import type { RegistryRecord } from '@datagouv/algos-core'
 import type { UiBreadcrumbProps, UiCard, UiFilter, UiFilterableCard } from '../shared/types/ui'
 import { recordPath, routes } from '../routes'
 import { facetLabel, toFacetValues, toFilters } from './facets'

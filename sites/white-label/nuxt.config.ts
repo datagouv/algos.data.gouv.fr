@@ -1,4 +1,4 @@
 export default defineNuxtConfig({
-  extends: ['@datagouv/regles-web'],
+  extends: ['@datagouv/algos-web'],
   css: ['~/assets/main.css'],
 })

@@ -1,7 +1,7 @@
 {
-  "name": "@datagouv/regles-rule-form",
+  "name": "@datagouv/algos-rule-form",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "exports": {
     ".": "./dist/rule-form.js",
@@ -11,8 +11,8 @@
     "dist"
   ],
   "devDependencies": {
-    "@datagouv/regles-site-gouv-fr": "workspace:*",
-    "@datagouv/regles-web": "workspace:*",
+    "@datagouv/algos-site-gouv-fr": "workspace:*",
+    "@datagouv/algos-web": "workspace:*",
     "@gouvminint/vue-dsfr": "^8.21.0",
     "@shallowred/jsonforms-vue-dsfr": "https://github.com/ShallowRed/survey-kit/releases/download/jsonforms-vue-dsfr-v0.1.0/shallowred-jsonforms-vue-dsfr-0.1.0.tgz",
     "@vitejs/plugin-vue": "6.0.10",

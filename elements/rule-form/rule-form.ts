@@ -1,4 +1,4 @@
-import UiRuleForm from '@datagouv/regles-site-gouv-fr/app/components/UiRuleForm.vue'
+import UiRuleForm from '@datagouv/algos-site-gouv-fr/app/components/UiRuleForm.vue'
 import { defineCustomElement } from 'vue'
 import '@gouvminint/vue-dsfr/styles'
 import '@shallowred/jsonforms-vue-dsfr/styles'

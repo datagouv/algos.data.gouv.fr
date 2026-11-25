@@ -1,4 +1,4 @@
-import type { RegistryRecord } from '@datagouv/regles-core'
+import type { RegistryRecord } from '@datagouv/algos-core'
 import type { UiFilter, UiFilterOption } from '../shared/types/ui'
 import type { Facet } from './labels'
 import { FACET_LABELS, METHOD_LABELS, SOURCE_OPENNESS_LABELS, THEMATIC_AREA_LABELS } from './labels'

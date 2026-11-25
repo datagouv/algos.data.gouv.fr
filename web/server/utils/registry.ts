@@ -1,5 +1,5 @@
-import type { Registry, RegistryGap } from '@datagouv/regles-core'
-import { buildRegistry } from '@datagouv/regles-core'
+import type { Registry, RegistryGap } from '@datagouv/algos-core'
+import { buildRegistry } from '@datagouv/algos-core'
 
 export async function loadRegistry(): Promise<Registry> {
   const storage = useStorage('assets:records')
