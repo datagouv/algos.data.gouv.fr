@@ -32,6 +32,7 @@ export default antfu(
       'contract/',
       'data/',
       'docs/',
+      'engines/catala/',
       '.github/',
       '.mypy_cache/',
     ],

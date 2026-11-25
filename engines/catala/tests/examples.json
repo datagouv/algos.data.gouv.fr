@@ -1,0 +1,11 @@
+{
+  "examples": [
+    {
+      "package": "prestagri",
+      "repository": "https://github.com/betagouv/prestagri",
+      "commit": "03bbdaa58739cb6b6b6f25ad8390dd7e7685baf1",
+      "directory": "backend/app/catala",
+      "cases": []
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[tools]
+uv = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
+
+[tasks.test]
+alias = "engine-catala:test"
+description = "Test the execution of compiled Catala scopes on the examples of tests/examples.json"
+run = "uv run pytest"
