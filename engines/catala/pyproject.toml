@@ -1,0 +1,13 @@
+[project]
+name = "engine-catala"
+version = "0.1.0"
+description = "Execute a compiled Catala scope on JSON inputs"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8.4.0"]
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"

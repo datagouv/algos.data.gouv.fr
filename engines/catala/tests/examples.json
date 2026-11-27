@@ -1,0 +1,130 @@
+{
+  "examples": [
+    {
+      "package": "prestagri",
+      "repository": "https://github.com/betagouv/prestagri",
+      "commit": "03bbdaa58739cb6b6b6f25ad8390dd7e7685baf1",
+      "directory": "backend/app/catala",
+      "cases": [
+        {
+          "target": "prestagri.generated.Quotient_familial:calcul_quotient_familial",
+          "inputs": {
+            "menage": {
+              "beneficiaire_porteur_handicap": false,
+              "garde_alternee": false,
+              "parent_isole": true,
+              "outre_mer": false,
+              "membres_du_foyer": [{"revenu_fiscal_reference": 32000, "nombre_personnes": 3}]
+            }
+          },
+          "output": {
+            "nombre_personnes_vivants_au_foyer": 3.0,
+            "revenu_fiscal_reference": 32000.0,
+            "criteres_applicables": [{"code": "Parent_isole", "payload": 1.0}],
+            "nombre_unites": 4.0,
+            "quotient_familial": 666.67
+          }
+        },
+        {
+          "target": "prestagri.generated.Aide_scolarite:calcul_quotient_familial_aide_scolarite",
+          "inputs": {
+            "foyer_fiscal_agent": {
+              "beneficiaire_porteur_handicap": false,
+              "garde_alternee": false,
+              "parent_isole": true,
+              "outre_mer": false,
+              "membres_du_foyer": [{"revenu_fiscal_reference": 32000, "nombre_personnes": 3}]
+            },
+            "etudiants_fiscalement_independants": [{"revenu_fiscal_reference": 6000, "nombre_personnes": 1}]
+          },
+          "output": {
+            "revenu_fiscal_reference": 38000.0,
+            "criteres_applicables": [{"code": "Parent_isole", "payload": 1.0}],
+            "nombre_personnes_vivants_au_foyer": 4.0,
+            "nombre_unites": 5.0,
+            "quotient_familial": 633.33
+          }
+        },
+        {
+          "target": "prestagri.generated.Aide_scolarite:calcul_points_trajet",
+          "inputs": {"trajet": {"distance_km": 120, "duree_minutes": 90}},
+          "output": {"nb_points": 4.0}
+        },
+        {
+          "target": "prestagri.generated.Aide_scolarite:calcul_points_aide_scolarite",
+          "inputs": {
+            "trajet_depuis_domicile_agent": {"distance_km": 120, "duree_minutes": 90},
+            "trajet_depuis_domicile_etudiant": null,
+            "montant_materiel_specifique": 300,
+            "valeur_point": 10,
+            "etudiant_en_filiere_post_bac": true
+          },
+          "output": {
+            "criteres_applicables": [
+              {"code": "C3_eloignement_agent", "payload": 4.0},
+              {"code": "C4_materiel", "payload": 2.0},
+              {"code": "C5_etudes_superieures", "payload": 1.0}
+            ],
+            "nb_points": 7.0
+          }
+        },
+        {
+          "target": "prestagri.generated.Aide_scolarite:calcul_aide_scolarite",
+          "inputs": {
+            "foyer_fiscal_agent": {
+              "beneficiaire_porteur_handicap": false,
+              "garde_alternee": false,
+              "parent_isole": true,
+              "outre_mer": false,
+              "membres_du_foyer": [{"revenu_fiscal_reference": 32000, "nombre_personnes": 3}]
+            },
+            "etudiants_fiscalement_independants": [{"revenu_fiscal_reference": 6000, "nombre_personnes": 1}],
+            "trajet_depuis_domicile_agent": {"distance_km": 120, "duree_minutes": 90},
+            "trajet_depuis_domicile_etudiant": {"distance_km": 40, "duree_minutes": 35},
+            "montant_materiel_specifique": 300,
+            "etudiant_en_filiere_post_bac": true
+          },
+          "output": {
+            "revenu_fiscal_reference": 38000.0,
+            "nombre_personnes_vivants_au_foyer": 4.0,
+            "nombre_unites": 5.0,
+            "criteres_applicables_quotient_familial": [{"code": "Parent_isole", "payload": 1.0}],
+            "quotient_familial": 633.33,
+            "valeur_point": 100.0,
+            "criteres_applicables": [
+              {"code": "C2_domiciliation_separee", "payload": 2.0},
+              {"code": "C3_eloignement_etudiant", "payload": 2.0},
+              {"code": "C4_materiel", "payload": 2.0},
+              {"code": "C5_etudes_superieures", "payload": 1.0}
+            ],
+            "nb_points": 7.0,
+            "aide_scolarite": 700.0
+          }
+        },
+        {
+          "target": "prestagri.generated.Quotient_familial:calcul_quotient_familial",
+          "inputs": {
+            "menage": {
+              "beneficiaire_porteur_handicap": false,
+              "garde_alternee": false,
+              "parent_isole": false,
+              "outre_mer": false,
+              "membres_du_foyer": []
+            }
+          },
+          "error": {"type": "ScopeError", "match": "division by zero"}
+        },
+        {
+          "target": "prestagri.generated.Quotient_familial:calcul_quotient_familial",
+          "inputs": {},
+          "error": {"type": "ValueError", "match": "menage"}
+        },
+        {
+          "target": "prestagri.generated.Aide_scolarite:retrait_critere_c2",
+          "inputs": {"criteres": [{"code": "C1", "payload": null}]},
+          "error": {"type": "UnsupportedType", "match": "no conversion from JSON"}
+        }
+      ]
+    }
+  ]
+}
