@@ -28,7 +28,7 @@ overrides:
 
 Son `nuxt.config.ts` étend `@datagouv/algos-site-gouv-fr` et désigne le dossier de ses fiches par l'option `records.dir`, lue par `web/modules/records.ts`. Il déclare ses pages dans son `routes.ts`, comme un site du dépôt, et ajoute leurs liens à la navigation du site DSFR dans la liste `navigation` de son `app.config.ts`, avant ceux du site.
 
-Le site DSFR dépend de `@shallowred/jsonforms-vue-dsfr` par l'adresse d'une release de survey-kit. Avec pnpm 12, le projet qui étend le site autorise cette dépendance par `blockExoticSubdeps: false` dans son `pnpm-workspace.yaml`.
+Le site DSFR dépend de `@shallowred/formulaires-vue-dsfr` par l'adresse d'une release du dépôt formulaires, qui publie ses paquets en archives de release selon [sa décision sur le dépôt de formulaires](https://github.com/ShallowRed/formulaires/blob/main/docs/decisions/ADR-0001-depot-de-formulaires.md). Avec pnpm 12, le projet qui étend le site autorise cette dépendance par `blockExoticSubdeps: false` dans son `pnpm-workspace.yaml`.
 
 À son installation, `@gouvfr/dsfr` vérifie que le projet a accepté les [modalités d'utilisation du DSFR](https://github.com/GouvernementFR/dsfr/blob/main/doc/legal/cgu.md), dans un fichier `.dsfr.yml` à sa racine (`accept-license: <version>`). Le projet qui étend le site ajoute ce fichier, que `pnpm create @gouvfr/dsfr` écrit après acceptation, et autorise le script de vérification par `'@gouvfr/dsfr': true` sous `allowBuilds` dans son `pnpm-workspace.yaml`.
 

@@ -1,7 +1,7 @@
 import antfu from '@antfu/eslint-config'
 
 const designSystemImports = {
-  regex: '^(@gouv(fr|minint)/|@shallowred/jsonforms-vue-dsfr)',
+  regex: '^(@gouv(fr|minint)/|@shallowred/formulaires-vue-dsfr)',
   message: 'The DSFR is reserved for the sites of the French State: only sites/gouv-fr and elements/ import it.',
 }
 
